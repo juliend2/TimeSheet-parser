@@ -38,6 +38,10 @@ export default class Tokenizer {
         return line[0] === '#' && !line.includes('\n')
     }
 
+    protected isHour(token: string): token is HourToken {
+        return /\d{1,2}[:h]\d{1,2}/.test(token)
+    }
+
     protected isDurationLine(line: string): line is DurationLine {
         let [from, to] = line.split(/ - /, 2)
         if (!from || !to) {
@@ -67,10 +71,6 @@ export default class Tokenizer {
     protected getDurationCommentFromLine(line: string): DurationComment {
         const to = line.split(/ - /, 2)[1]
         return to.split(/ : /, 2)[1]
-    }
-
-    protected isHour(token: string): token is HourToken {
-        return /\d{1,2}[:h]\d{1,2}/.test(token)
     }
 
     protected hasDurationComment(s: string): boolean {
