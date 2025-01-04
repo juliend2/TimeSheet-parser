@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import Tokenizer from "./tokenizer"
+import Tokenizer, { Comment } from "./tokenizer"
 
 test("tokenize line comments", () => {
     const tokenizer = new Tokenizer(
@@ -8,7 +8,7 @@ test("tokenize line comments", () => {
         `
     );
     tokenizer.tokenize()
-    expect(tokenizer.tokens).toContain('# comment')
+    expect(tokenizer.tokens).toContainEqual({ text: 'comment', type: 'comment' })
 });
 
 test("tokenize duration", () => {
@@ -17,7 +17,7 @@ test("tokenize duration", () => {
         `
     )
     tokenizer.tokenize()
-    expect(tokenizer.tokens).toContain(`1:00 - 2:00`)
+    expect(tokenizer.tokens).toContainEqual({ text: '1:00 - 2:00', type: 'duration' })
 })
 
 test("tokenize duration line with comment", () => {
@@ -26,8 +26,8 @@ test("tokenize duration line with comment", () => {
         `
     )
     tokenizer.tokenize()
-    expect(tokenizer.tokens).toContain(`1:00 - 2:00`)
-    expect(tokenizer.tokens).toContain(`ceci est une durée`)
+    expect(tokenizer.tokens).toContainEqual({ text: '1:00 - 2:00', type: 'duration' })
+    expect(tokenizer.tokens).toContainEqual({ text: 'ceci est une durée', type: 'comment' })
 })
 
 test("Don't tokenize invalid durations", () => {
