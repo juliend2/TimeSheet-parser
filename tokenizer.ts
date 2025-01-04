@@ -40,14 +40,16 @@ export type DurationLine = z.infer<typeof DurationLine>
 
 export type LineComment = string
 
+type TokenType = 'hour' | 'duration' | 'comment'
+
 export interface Token {
     text: string;
-    type: string;
+    type: TokenType;
 }
 
 export class Hour implements Token {
     public text: string;
-    public type: string = 'hour';
+    public type: TokenType = 'hour';
 
     constructor(text: string) {
         this.text = text
@@ -56,16 +58,40 @@ export class Hour implements Token {
 
 export class Duration implements Token {
     public text: string;
-    public type: string = 'duration';
+    public type: TokenType = 'duration';
 
     constructor(text: string) {
         this.text = text
+    }
+
+    public get hourTokens(): string[] {
+        return this.text.split(/ - /, 2)
+    }
+
+    public get minutes(): number {
+        const [from, to] = this.hourTokens
+        const matchRegex = /^(\d{1,2})[h:](\d{2})$/i
+
+        if (HourToken.safeParse(from).error || HourToken.safeParse(to).error) {
+            return 0
+        }
+        const fromMatches = this.matchesToNumbers(from.match(matchRegex) as RegExpMatchArray)
+        const toMatches = this.matchesToNumbers(to.match(matchRegex) as RegExpMatchArray)
+        return this.numberPairsToMinutes(toMatches) - this.numberPairsToMinutes(fromMatches)
+    }
+
+    protected matchesToNumbers(matches: RegExpMatchArray): number[] {
+        return matches.slice(1, 3).map((n) => parseInt(n, 10))
+    }
+
+    protected numberPairsToMinutes(numbers: number[]) {
+        return (numbers[0] * 60) + numbers[1]
     }
 }
 
 export class Comment implements Token {
     public text: string;
-    public type: string = 'comment';
+    public type: TokenType = 'comment';
 
     constructor(text: string) {
         this.text = text
