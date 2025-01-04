@@ -29,7 +29,7 @@ export default class Parser {
             }
             if (current.type === 'duration' && accumulator.length > 0) {
                 const newAccumulator = accumulator
-                newAccumulator[accumulator.length - 1].durations.push(current)
+                newAccumulator[accumulator.length - 1].durations.push(current as Duration)
                 return newAccumulator
             }
             return accumulator
