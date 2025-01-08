@@ -57,7 +57,6 @@ test('groups the durations with the comments', () => {
 
     const parser = new Parser(tokenizer)
     parser.groupByComments()
-    console.log('bob', parser.totals)
     expect(parser.totals).toBeArray()
     expect(parser.totals).toHaveLength(2)
 })

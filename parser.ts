@@ -9,7 +9,7 @@ type Total = Comment & {
 }
 
 type Expand<T> = { [K in keyof T]: T[K] };
-type b = Expand<Total>
+type b = Expand<GroupedToken>
 // type ExpandedGroupedToken = Expand<GroupedToken>
 
 export default class Parser {
@@ -22,6 +22,7 @@ export default class Parser {
     }
 
     public groupByComments(): void {
+
         this._tokenizer.tokenize()
         this._tree = this._tokenizer.tokens.reduce<GroupedToken[]>((accumulator, current) => {
             if (current.type === 'comment') {
