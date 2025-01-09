@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
-import Hour from "./hour"
-import Duration, { PositiveNumber } from "./duration"
+import Hour from "../src/hour"
+import Duration, { PositiveNumber } from "../src/duration"
 
 test("calculate time difference", () => {
     const from = new Hour('1:30')

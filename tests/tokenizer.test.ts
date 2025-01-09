@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import Tokenizer, { Comment } from "./tokenizer"
+import Tokenizer, { Comment } from "../src/tokenizer"
 
 test("tokenize line comments", () => {
     const tokenizer = new Tokenizer(

@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 
-import Hour from "./hour"
+import Hour from "../src/hour"
 
 test("calculates minutes", () => {
     const h = new Hour('1:30')

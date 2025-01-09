@@ -1,5 +1,5 @@
-import Tokenizer, { Duration, Comment, Token } from './tokenizer'
-import Parser from './parser'
+import Tokenizer, { Duration, Comment, Token } from '../src/tokenizer'
+import Parser from '../src/parser'
 import { expect, test } from 'bun:test'
 
 

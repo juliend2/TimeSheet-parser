@@ -1,4 +1,4 @@
-import Tokenizer, { Token, Comment, Duration } from "./tokenizer"
+import Tokenizer, { Token, Comment, Duration } from "../tokenizer"
 
 type GroupedToken = Comment & {
     durations: Duration[]

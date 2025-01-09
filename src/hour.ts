@@ -1,4 +1,4 @@
-import { HourToken } from "./tokenizer"
+import { HourToken } from "../tokenizer"
 
 export default class Hour {
     static readonly MINUTES_IN_HOUR: number = 60
